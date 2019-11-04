@@ -1,3 +1,14 @@
+{-  template for your comment
+Melissa G + Ayana N
+User:  Our imagined user is a child, Mateo,  aged 9, who does not have much knowledge on sinusoidal functions, like the average 9-year-old. This child is from Australia and has minimal understanding of waves, such as what a crest and trough is, and the optimal wave to surf is.
+Activity:  Mateo is engaged in surfing along the Gold Coast.
+Emotion:  Mateo loves to surf and play guitar, like Cody Simpson, and would like to see how waves work and the meaning behind it.
+Tasks:  Certain tasks with regards to surfing involves having an understanding of the heights of waves (amplitude), periods, wavelengths, and frequencies. 
+Typical Interaction:  Mateo does not understand what the variables behind waves are as he does not know the definitions. So, Mateo takes a look at the definitions and adjusts the arrows, with new labels, to observe the change in behaviour of the wave. For example, when he increases the frequency, he has a bumpy ride, and can fall off!! So, he understands when the frequency of the sine function is increased, his wave will go quicker in a smaller amount of time, which helps visualize that the period is 1 divided by the frequency. He understands that when the amplitude is increased, he rides the wave at a higher distance. He understands when the phase shift is changed, it means the position of the wave is shifted horizontally from the usual position! 
+Principle 1:  Affordances. The editable X Sin in the window was confusing to us, it was not related to editable Y Sin, and seemed to serve no clear purpose. We decided to edit that part out to avoid confusion to our user, Mateo, as well as other users.
+Principle 2:  The main principle is is discoverability. The conceptual model in turn enhances the discoverability. We Added labels for what the arrow buttons do to change the sinusoidal function. We also added a textbox explaining what those labels mean, using simple math terms a child like Mateo would understand, from: https://www.mathsisfun.com/algebra/amplitude-period-frequency-phase-shift.html. The labels on the buttons are only amplitude, frequency and phase shift. However, the information in the textbox includes more terms such as period and wavelength, as they are relevant to the main terms.
+-}
+
 module SinCreator exposing (..)
 
 {-
