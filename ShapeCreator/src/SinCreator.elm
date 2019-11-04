@@ -189,7 +189,6 @@ type Transforms
     | ScaleX
     | ScaleY
     | MakeTransparent
-    | EditableXSin
 
 
 type ButtonDir
@@ -895,9 +894,7 @@ cycleTransforms tr =
             MoveCircle
 
         MoveCircle ->
-            EditableXSin
 
-        EditableXSin ->
             ScaleU
 
 
@@ -924,11 +921,9 @@ cycleTransformsReverse tr =
         MoveCircle ->
             MoveY
 
-        EditableXSin ->
-            MoveCircle
 
         ScaleU ->
-            EditableXSin
+            MoveCircle
 
 
 applyTransforms tr model =
@@ -961,8 +956,6 @@ applyTransforms tr model =
         MakeTransparent ->
             makeTransparent u
 
-        EditableXSin ->
-            move ( model.uCosGraph, 0 )
 
 
 applyTransformsText tr =
@@ -991,8 +984,6 @@ applyTransformsText tr =
         MakeTransparent ->
             " makeTransparent "
 
-        EditableXSin ->
-            " editable Y Sin "
 
 
 applyTransformsYourCode model tr =
@@ -1021,8 +1012,6 @@ applyTransformsYourCode model tr =
         MakeTransparent ->
             "|> makeTransparent " ++ String.fromFloat model.uScale ++ "*sin(" ++ cosinString model
 
-        EditableXSin ->
-            "|> move (" ++ String.fromFloat model.editableScale ++ "*cos(model.time) , " ++ "0" ++ ")"
 
 
 
@@ -1129,7 +1118,34 @@ view model =
                     ]
                     |> move ( 30, 50 )
                 ]
-
+        functionDefText = 
+            group 
+                [
+                    definition "Amplitude: is the height from"  |> move ( 0, 160 )
+                    , definition "  the center line to the peak " |> move ( 0, 150 )
+                    , definition "  (or to the trough). Or we" |> move ( 0, 140 )
+                    , definition "  can measure the height" |> move ( 0, 130 )
+                    , definition "  from highest to lowest" |> move (0, 120)
+                    , definition "   points and divide that" |> move (0, 110)
+                    , definition "  by 2." |> move (0, 100)
+                    , definition "Wavelength: the distance" |> move (0, 90)
+                    , definition "  between crests of a wave" |> move (0, 80)
+                    , definition "Phase Shift: how far the" |> move (0, 60)
+                    , definition "  function is shifted" |> move (0, 50)
+                    , definition "  horizontally from the usual" |> move (0, 40)
+                    , definition "  position." |> move (0, 30)
+                    , definition "Period goes from one peak to" |> move (95, 160)
+                    , definition "  the next (or from any point" |> move (95, 150)
+                    , definition "  to the next matching point)." |> move (95, 140)
+                    , definition "  The Period is 1" |> move (95, 130)
+                    , definition "  divided by the Frequency." |> move (95, 120)
+                    ,definition "The Frequency is how often" |> move (95, 100)
+                    , definition "  something happens per unit" |> move (95 , 90)
+                    , definition "  of time (per '1')." |> move (95, 80)
+                    , definition "  Frequency is 1÷Period." |> move (95, 70)
+                    , definition "  When the frequency is per" |> move (95, 60)
+                    , definition "  second it's called 'Hertz'." |> move (95, 50)
+                ]
         {-
            moveGraphicsY =
                group
@@ -1169,7 +1185,13 @@ view model =
                 --, polygon [ ( -6, 0 ), ( 6, 0 ), ( 0, 12 ) ] |> filled red |> makeTransparent 0.25 |> notifyTap VScaleMinus |> rotate (degrees 180) |> move ( 60, -20 ) |> notifyMouseDown (ButtonDown VDown) |> notifyMouseUp (ButtonDown None)
                 --, polygon [ ( -6, 0 ), ( 6, 0 ), ( 0, 12 ) ] |> filled red |> makeTransparent 0.25 |> notifyTap VDilationMinus |> rotate (degrees 180) |> move ( 95, -20 )
                 ]
-
+        functionDefinitions = 
+            group 
+                [
+                    definition "Amplitude" |> move ( -67, -10 )
+                    , definition "Wavelength" |> move ( -111, -5 )
+                    , definition "Phase shift" |> move ( 17, -5 )
+                ]
         rgbGraphics =
             group
                 [ rect 140 50 |> outlined (solid 1) red |> makeTransparent 0.25 |> move ( 43, -5 )
@@ -1219,20 +1241,24 @@ view model =
         , trigGraphAxis model |> move ( -185, 70 )
         , circleGraphics
         ]
-        |> move ( -140, 80 )
+        |> move ( -140, 60 )
     , titlesText |> makeTransparent 0
     , cosLabel |> move ( -127, 67 )
-    , transformsGraphicsGroup |> move ( 0, -100 )
+    , transformsGraphicsGroup |> move ( 105, -110 )
+    , group 
+        [
+            rect 90 175 |> outlined (solid 2) green |> makeTransparent 0.25 |> move (-55, -10 )
+            , rect 95 175 |> outlined (solid 2) green |> makeTransparent 0.25 |> move (38, -10 )
 
-    --, moveGraphicsX |> move ( 180, 220 )
-    --, moveGraphicsY |> move ( 60, 50 )
+            , functionDefText |> move ( -100, -90 )
+        ] |> move (-40,-20)
     , group
         [ functionText model |> move ( 5, 150 )
         , setofTriangles |> move ( 0, 165 )
+        , functionDefinitions |> move ( 0, 185 )
         ]
-        |> move ( -20, 15 )
+        |> move ( -20, 0 )
 
-    --, rgbGraphics |> move ( 140, 90 )
     , yourCodeGroup |> move ( 40, 110 )
     ]
 
@@ -1269,10 +1295,11 @@ showDigits width x =
 titleColour =
     rgba 200 0 0 0.95
 
+definition str = 
+    str |> text |> size 5 |> fixedwidth |> filled darkGreen
 
 copiable str =
     str |> text |> selectable |> fixedwidth |> size 6 |> filled black
-
 
 copiable2 str =
     str |> text |> selectable |> fixedwidth |> size 9 |> filled black
