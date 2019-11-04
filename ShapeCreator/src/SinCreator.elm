@@ -1188,8 +1188,8 @@ view model =
         functionDefinitions = 
             group 
                 [
-                    definition "Amplitude" |> move ( -67, -10 )
-                    , definition "Wavelength" |> move ( -111, -5 )
+                    definition "Frequency" |> move ( -67, -10 )
+                    , definition "Amplitude" |> move ( -111, -5 )
                     , definition "Phase shift" |> move ( 17, -5 )
                 ]
         rgbGraphics =
